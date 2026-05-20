@@ -1,0 +1,13 @@
+# Obsidian — benutzerspezifischer Zustand (nicht committen)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+
+# PDFs in raw/ — zu groß für Git, werden lokal abgelegt
+raw/*.pdf
+
+# Claude Code — maschinenspezifische Berechtigungen
+.claude/settings.local.json
+
+# macOS
+.DS_Store
