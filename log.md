@@ -6,6 +6,14 @@ Parse tip: `grep "^## \[" log.md | head -10` gives the 10 most recent entries.
 
 ---
 
+## [2026-05-21] ingest | Onačillová et al. 2022 — LST Downscaling Landsat+Sentinel-2 in GEE
+- Raw file: remotesensing-14-04076-v2.pdf
+- Files created (1): wiki/sources/onacillova-2022-lst-downscaling.md
+- Files updated (6): wiki/concepts/remote-sensing-methods.md (step-by-step downscaling section + GEE app), wiki/concepts/land-surface-temperature.md (10 m achievability, accuracy caveat), wiki/concepts/ndvi.md (bivariate R² table), wiki/methodischer-plan-wuerzburg.md (Phase 1.1 konkretisiert + Lücke geschlossen), wiki/overview.md, index.md
+- Total sources now: 12 | Total pages: 32
+- Key contribution: free GEE app delivers 10 m LST for Würzburg out of the box; step-by-step guide filed in source page and methodischer plan
+- Limitation filed: RMSE ~4.2 °C — use for spatial patterns, not absolute temperatures
+
 ## [2026-05-20] update | Brücke zu Code-Projekt resilientes_wuerzburg
 - Neu: wiki/simulation-logic.md — Berechnungslogik für beide Simulationsendpoints (Input/Output, Formeln, Caveats)
 - Neu: backend/simulation_params.py im Code-Projekt (alle Koeffizienten mit Wiki-Quellverweisen)

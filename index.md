@@ -1,8 +1,8 @@
 ---
 title: "Wiki Index"
-updated: 2026-05-20
-total_sources: 11
-total_pages: 31
+updated: 2026-05-21
+total_sources: 12
+total_pages: 32
 ---
 
 # Urban Heat Mapping — Wiki Index
@@ -31,6 +31,7 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] — Tervooren (2015, AGIT): ΔTempLST = −0,03°C × ΔVersiegelung%; R²=0,75–0,80; Potsdam/Cfb **[KEY: Entsiegelungskoeffizient]**
 - [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] — Leitfaden Flächenentsiegelung (Landkreis Bayreuth, 2024): Abflussbeiwert-Tabelle nach Belagstyp; 45% Germany sealed; Kosten
 - [[wiki/sources/uba-texte141-2021-entsiegelung]] — Pannicke-Prochnow et al. (UBA Texte 141/2021): Entsiegelungspotenziale; Rechtslage; Copernicus Imperviousness Layer; doppelte Innenentwicklung
+- [[wiki/sources/onacillova-2022-lst-downscaling]] — Onačillová et al. (2022, Remote Sensing): Landsat 8 LST → 10 m via Sentinel-2 + multiple linear regression; free GEE app; step-by-step guide for Würzburg **[KEY: LST-DATENERFASSUNG]**
 
 ---
 
@@ -42,7 +43,7 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/concepts/impervious-surface]] — Versiegelung: sealed surfaces as UHI driver; Munich/Nuremberg ranking; Bavarian policy risk (2 sources)
 - [[wiki/concepts/evapotranspiration]] — Plant transpiration cooling mechanism; key parameter alongside LAI (3 sources)
 - [[wiki/concepts/ndvi]] — Vegetation index; negative LST correlate; cooling threshold at NDVI > 0.4 (2 sources)
-- [[wiki/concepts/remote-sensing-methods]] — Landsat LST, tree crown segmentation, NDVI/NDBI; full data pipeline for Würzburg (3 sources)
+- [[wiki/concepts/remote-sensing-methods]] — Landsat LST, Sentinel-2 downscaling to 10 m (GEE), tree crown segmentation, NDVI/NDBI; full data pipeline for Würzburg (4 sources)
 - [[wiki/concepts/local-climate-zones]] — LCZ classification; WRF input; simulation framework (2 sources)
 - [[wiki/concepts/urban-morphology]] — Building density, sky view factor, LCZ; morphology effects on LST (2 sources)
 - [[wiki/concepts/tree-species-selection]] — Drought tolerance vs. cooling tradeoff; LB3 vs. LB6 species (1 source)

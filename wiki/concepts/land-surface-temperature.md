@@ -1,9 +1,9 @@
 ---
 title: "Land Surface Temperature (LST)"
 type: concept
-tags: [lst, remote-sensing, landsat, thermal-infrared, core-concept]
-sources: 5
-updated: 2026-05-20
+tags: [lst, remote-sensing, landsat, sentinel-2, thermal-infrared, downscaling, core-concept]
+sources: 6
+updated: 2026-05-21
 ---
 
 # Land Surface Temperature (LST)
@@ -16,6 +16,7 @@ The radiometric temperature of the land surface as measured by thermal infrared 
 - Standard satellite sources: **Landsat** (30m/100m resolution, ~16 day revisit), **MODIS** (1km, daily), **Sentinel-3** (1km, daily), **ECOSTRESS** (70m, irregular). For city-level analysis, Landsat is typically the best trade-off.
 - **Retrieval algorithms**: mono-window algorithm (Qin et al.), split-window algorithm, single-channel algorithm — different bands and emissivity assumptions.
 - In Munich: downscaled LST product used by García de León et al., giving sub-Landsat resolution via downscaling techniques. *(Source: [[wiki/sources/garcia-de-leon-lst-trees-munich]])*
+- **10 m LST is achievable for free** by fusing Landsat 8/9 thermal data with Sentinel-2 optical bands (NDVI, NDBI, NDWI) via multiple linear regression, implemented as a public GEE application. Accuracy: RMSE ~4.2 °C vs. in-situ; use for spatial patterns, not absolute temperatures. *(Source: [[wiki/sources/onacillova-2022-lst-downscaling]])*
 - **Key relationship**: each 1% increase in tree canopy cover → −0.069°C mean LST (Munich, summer 2020). *(Source: [[wiki/sources/garcia-de-leon-lst-trees-munich]])*
 - **Unsealing relationship**: each 1% reduction in sealed area → −0.03°C LST (Potsdam, R²=0.75–0.80). *(Source: [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]])*
 - Central European cities: urban trees 8–12 K cooler than urban fabric in summer. *(Source: [[wiki/sources/schwaab-2021-trees-european-cities]])*
@@ -43,9 +44,10 @@ LST is driven by the surface energy balance:
 
 ## Debates and Uncertainties
 
-- Downscaling methods improve spatial resolution but introduce uncertainty.
+- Downscaling methods improve spatial resolution but introduce uncertainty. The L8+S2 regression method (Onačillová 2022) achieves RMSE ~4.2 °C — adequate for relative hot/cold spot mapping, not for absolute temperature claims.
 - Single-date analysis vs. time series: summer averages give a different picture than individual heat days.
 - LST during extreme heat events may differ from summer averages in important ways.
+- Cloud cover limits usable scenes: Central European summers may yield only 3–6 cloud-free Landsat overpasses per season.
 
 ## Related Concepts
 
@@ -70,3 +72,4 @@ LST is driven by the surface energy balance:
 - [[wiki/sources/elmes-2017-tree-canopy-loss-lst]]
 - [[wiki/sources/reta-roba-hawassa-vegetation-lst]]
 - [[wiki/sources/li-et-al-urban-form-lst-xgboost]]
+- [[wiki/sources/onacillova-2022-lst-downscaling]]

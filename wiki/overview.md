@@ -8,7 +8,7 @@ updated: 2026-05-20
 
 # Urban Heat Mapping — Overview
 
-*Last updated: 2026-05-20 | Sources ingested: 11 (1 article + 7 papers/theses + 3 Entsiegelung)*
+*Last updated: 2026-05-21 | Sources ingested: 12 (1 article + 8 papers/theses + 3 Entsiegelung)*
 
 ---
 
@@ -16,7 +16,7 @@ updated: 2026-05-20
 
 Urban Heat Islands arise where sealed surfaces replace vegetation, converting solar energy to sensible heat rather than using it for evapotranspiration. In Central European cities including Germany, remote sensing studies consistently show that urban trees exhibit **8–12 K lower land surface temperature** than adjacent urban fabric in summer *(Schwaab et al. 2021, 293 European cities)*, and that each 1% increase in tree canopy cover corresponds to approximately **−0.069°C mean LST** *(García de León et al., Munich)*. When tree canopy is lost, the inverse holds: peak LST rises by 1–6°C and the summer warm period extends by up to 15 days *(Elmes et al. 2017)*.
 
-The project target — **Würzburg** — sits firmly in this Central European zone where tree cooling is most effective. The methodological template for the project already exists in the literature: the García de León et al. study applies precisely the same approach (downscaled LST + individual tree crown data + land use classification) to Munich, conducted by researchers at the University of Würzburg itself. Adapting this to Würzburg is the core analytical task.
+The project target — **Würzburg** — sits firmly in this Central European zone where tree cooling is most effective. The methodological template for the project already exists in the literature: the García de León et al. study applies precisely the same approach (downscaled LST + individual tree crown data + land use classification) to Munich, conducted by researchers at the University of Würzburg itself. Adapting this to Würzburg is the core analytical task. The practical barrier to LST data acquisition is now closed: a free public Google Earth Engine application (Onačillová et al. 2022) delivers **10 m LST** for any area of interest by fusing Landsat 8/9 thermal data with Sentinel-2 optical bands — no custom code required. Step-by-step instructions are in [[wiki/methodischer-plan-wuerzburg]] and [[wiki/sources/onacillova-2022-lst-downscaling]].
 
 A second intervention pathway — **surface unsealing (Entsiegelung)** — is now quantified: each 1% reduction in sealed area reduces LST by −0,03°C *(Tervooren 2015, Potsdam, R²=0,75–0,80)*. This is ~2.3× weaker per percentage point than tree planting (−0,069°C/%), but unsealing delivers co-benefits that trees alone cannot: precipitation infiltration, groundwater recharge, and biodiversity. Practical surface options and their infiltration coefficients (Abflussbeiwert) are documented for the Bavaria context *(Leitfaden Bayreuth 2024)*. The Copernicus Imperviousness Layer provides free GIS data on Würzburg's current sealing state *(UBA 2021)*.
 
@@ -74,7 +74,7 @@ Priority:
 
 | Topic | Sources |
 |-------|---------|
-| LST–tree correlation / remote sensing | 3 |
+| LST–tree correlation / remote sensing | 4 |
 | Green infrastructure / tree cooling | 5 |
 | Impervious surface / Versiegelung | 2 |
 | Entsiegelung / surface unsealing | 3 |

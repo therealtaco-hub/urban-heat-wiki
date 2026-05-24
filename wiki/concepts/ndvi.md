@@ -29,8 +29,11 @@ A spectral index calculated from near-infrared (NIR) and red band reflectance: `
 | Finding | Value | Source |
 |---------|-------|--------|
 | LST-NDVI relationship | Negative correlation | [[wiki/sources/reta-roba-hawassa-vegetation-lst]] |
+| NDVI bivariate R² with LST (Košice) | 0.63 (strongest single predictor) | [[wiki/sources/onacillova-2022-lst-downscaling]] |
+| NDBI bivariate R² with LST (Košice) | 0.503 | [[wiki/sources/onacillova-2022-lst-downscaling]] |
+| NDWI bivariate R² with LST (Košice) | 0.564 | [[wiki/sources/onacillova-2022-lst-downscaling]] |
 | NDVI cooling threshold | > 0.4 | [[wiki/sources/li-et-al-urban-form-lst-xgboost]] |
-| NDBI vs. NDVI as LST predictor | NDBI stronger | [[wiki/sources/reta-roba-hawassa-vegetation-lst]] |
+| NDBI vs. NDVI as LST predictor | NDBI stronger (Hawassa); NDVI stronger (Košice) | [[wiki/sources/reta-roba-hawassa-vegetation-lst]], [[wiki/sources/onacillova-2022-lst-downscaling]] |
 
 ## Debates and Uncertainties
 

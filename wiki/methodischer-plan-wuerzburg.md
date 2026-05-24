@@ -2,7 +2,7 @@
 title: "Methodischer Plan: Urban Heat Mapping Würzburg"
 type: overview
 tags: [würzburg, methodik, plan, lst, simulation, zensus, vulnerabilität]
-sources: 9
+sources: 10
 updated: 2026-05-20
 ---
 
@@ -14,12 +14,34 @@ Strukturierter Arbeitsplan für das Würzburg-Projekt. Basiert auf Synthese alle
 
 ## Phase 1 — Datenbeschaffung
 
-**1.1 Land Surface Temperature (LST)**
-- Landsat 8/9 Szenen für Würzburg, Sommermonate (Juni–September), mehrere Jahre (mind. 3–5 für Robustheit)
-- Download via USGS EarthExplorer oder Google Earth Engine
-- Optional: Downscaling mit Sentinel-2 (10m optisch) auf sub-Landsat-Auflösung — Methode analog zu [[wiki/sources/garcia-de-leon-lst-trees-munich]]
-- LST-Retrieval: Mono-Window-Algorithmus oder Single-Channel (Landsat 8 Band 10)
-- Ziel: mittlere Sommer-LST pro Rasterzelle für Würzburg
+**1.1 Land Surface Temperature (LST) — Ziel: 10 m Auflösung**
+
+Empfehlung: **GEE-Downscaling-Tool** (Onačillová et al. 2022) direkt verwenden. Liefert LST auf 10 m, kostenlos, ohne eigene Algorithmus-Implementierung. Vollständige Schritt-für-Schritt-Anleitung: [[wiki/sources/onacillova-2022-lst-downscaling]]
+
+**Konkrete Vorgehensweise:**
+
+1. **GEE-Account anlegen** (kostenlos): https://earthengine.google.com
+2. **GEE-App öffnen:** https://danielp.users.earthengine.app/view/lst-downscaling
+3. **ROI definieren:** Geometry-Tool verwenden, Polygon über Würzburg zeichnen (~87 km², Limit 1000 km²).
+4. **Zeitraum setzen:** Sommermonate, z.B. 2022-06-01 bis 2022-09-30.
+5. **Landsat-Szene auswählen:** "Generate Image Collections" klicken → Szenen-IDs mit <5% Wolkenbedeckung werden aufgelistet. Eine Szene auswählen.
+6. **Passende Sentinel-2-Szene finden:** gleicher Aufnahmetag wie die gewählte Landsat-Szene (Sentinel-2 hat ~5-Tage-Revisit; ein Überlappungstag mit Landsat reicht). Szenen-ID eintragen.
+7. **Ausgabe generieren:** Layer `LST 10 m (with residuals)` verwenden (enthält Residualkorrektur zur Energieerhaltung).
+8. **Export:** Als GeoTIFF auf Google Drive exportieren.
+9. **Wiederholen** für 2–3 weitere klare Sommertage (verschiedene Jahre) → Mittelwert bilden für Robustheit.
+
+**Fallback (ohne GEE-App, manuell in Python/QGIS):**
+- Landsat Collection 2 Level-2 ST-Produkt herunterladen (LST wird direkt geliefert; Skalierungsfaktor ×0.00341802 + 149.0 K, dann −273.15 für °C).
+- Sentinel-2 MSI Level-2A für denselben Tag laden.
+- NDVI, NDBI, NDWI aus Landsat (30 m) und Sentinel-2 (10 m) berechnen.
+- OLS-Regression fitten: `LST30m = a0 + a1×NDVI + a2×NDBI + a3×NDWI`
+- Koeffizienten auf S2-10m-Indizes anwenden → LST10m_pred.
+- Residuen (30 m) auf 10 m resampeln und addieren → LST10m final.
+
+**Wichtige Einschränkungen:**
+- Nur unter wolkenfreien Bedingungen (<5% Wolken) anwendbar — in Würzburger Sommern ggf. nur 3–6 nutzbare Tage pro Saison.
+- RMSE ~4,2 °C gegen In-situ-Messung: Methode für räumliche Muster (Hotspot-Analyse) geeignet, nicht für Absoluttemperatur-Aussagen.
+- Quelle: [[wiki/sources/onacillova-2022-lst-downscaling]]
 
 **1.2 Baumbestandsdaten**
 - *Beste Option*: Einzelkronendaten aus städtischem GIS Würzburg (Baumkataster) + hochauflösende Luftbilddaten → Einzelkronensegmentierung (analog zu den >166.000 Bäumen in München bei [[wiki/sources/garcia-de-leon-lst-trees-munich]])
@@ -128,6 +150,7 @@ Zwei Simulationsebenen mit unterschiedlichem Aufwand und Präzision:
 |---|---|---|
 | Mikroskaliensimulation (ENVI-met) | hoch | Quelle zu ENVI-met-Methodik besorgen |
 | Entsiegelungskoeffizient (°C-Reduktion) | ~~hoch~~ | **Geschlossen**: −0,03°C pro 1% Entsiegelung — [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] |
+| LST-Downscaling auf 10 m | ~~hoch~~ | **Geschlossen**: GEE-App direkt einsetzbar — [[wiki/sources/onacillova-2022-lst-downscaling]] |
 | Lufttemperatur vs. LST (Übersetzung) | mittel | Quelle zu LST-Tair-Beziehung besorgen |
 | Würzburg-spezifische Kalibrierung | mittel | nach Phase-2-Ergebnissen beurteilen |
 | Gesundheitliche Temperaturschwellen | mittel | Hitzemortalitätsliteratur besorgen |
@@ -145,3 +168,4 @@ Zwei Simulationsebenen mit unterschiedlichem Aufwand und Präzision:
 - [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] — Entsiegelungskoeffizient −0,03°C/% (Phase 4)
 - [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] — Abflussbeiwerte und Belagskosten (Phase 4)
 - [[wiki/sources/uba-texte141-2021-entsiegelung]] — Rechtslage, Copernicus Imperviousness Layer (Phase 1)
+- [[wiki/sources/onacillova-2022-lst-downscaling]] — LST-Downscaling auf 10 m via GEE (Phase 1.1)
