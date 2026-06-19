@@ -2,8 +2,8 @@
 title: "Entsiegelung (Surface Unsealing)"
 type: concept
 tags: [entsiegelung, versickerung, grundwasser, temperatur, schwammstadt, bodenfunktionen]
-sources: 3
-updated: 2026-05-20
+sources: 4
+updated: 2026-06-08
 ---
 
 # Entsiegelung (Surface Unsealing)
@@ -39,19 +39,29 @@ Jede 1% Reduktion der Versiegelungsfläche senkt die mittlere LST um **0,03°C**
 
 ## Versickerungsgrade nach Belagstyp
 
-| Belag | Abflussbeiwert | Grünanteil | Materialkosten |
-|-------|---------------|-----------|---------------|
-| Rasendecke | 0,0–0,1 | 100% | 70–260 €/m² |
-| Rasenwabe | 0,15 | >90% | 35–45 €/m² |
-| Rasengitter | 0,15 | ~40% | 35–45 €/m² |
-| Schotterrasen | 0,3 | 20–30% | 20–30 €/m² |
-| Sickerpflaster | 0,0–0,6 | 0% | 130–270 €/m² |
-| Lehm/Kies/Splitt | 0,4 | 0% | 15–20 €/m² |
-| Asphalt (Referenz) | ~0,95 | 0% | — |
+Die folgende Tabelle zeigt die **Abflussbeiwerte (Ψ)** nach DWA-A138 / LfU Bayern — die verbindliche Bayerische Ingenieursnorm für Versickerungsanlagen. Dies ist die Primärquelle für die in `backend/simulation_params.py` verwendeten Werte.
 
-*(Source: [[wiki/sources/leitfaden-flaechenentsiegelung-2024]])*
+| Flächentyp | Belagsart | Ψ (Abflussbeiwert) |
+|---|---|---|
+| Straßen/Plätze | Asphalt, fugenloser Beton | **0,9** |
+| Straßen/Plätze | Pflaster mit dichten Fugen | 0,75 |
+| Straßen/Plätze | Fester Kiesbelag | 0,60 |
+| Straßen/Plätze | Pflaster mit offenen Fugen | 0,50 |
+| Straßen/Plätze | Lockerer Kiesbelag, Schotterrasen | 0,30 |
+| Straßen/Plätze | Verbundsteine mit Fugen, Sickersteine | 0,25 |
+| Straßen/Plätze | Rasengittersteine | **0,15** |
+| Gründach (≤ 15°) | humusiert < 10 cm | 0,50 |
+| Gründach (≤ 15°) | humusiert > 10 cm | 0,30 |
+| Garten / Wiese | flaches Gelände | **0,0–0,1** |
+| Garten / Wiese | steiles Gelände | 0,1–0,3 |
+
+*(Source: [[wiki/sources/dwa-a138-lfu-regenwasser-bayern]] — DWA-A138 / LfU Bayern)*
+
+Ergänzende Kostenangaben und eine breitere Bandbreite für Sickerpflaster (0,0–0,6) finden sich in [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] (Leitfaden Bayreuth 2024).
 
 > Abflussbeiwert = Anteil des Niederschlags, der oberflächlich abfließt (nicht versickert). Kleiner Wert = mehr Versickerung + mehr Verdunstungspotenzial.
+
+**Hinweis Asphalt-Diskrepanz:** DWA-A138 gibt Ψ = 0,9 für Asphalt/fugenloser Beton; `simulation_params.py` verwendet aktuell 0,95 (aus Leitfaden Bayreuth). Beide Werte liegen innerhalb der Bandbreite; DWA-A138 ist die Primärquelle.
 
 ## Entsiegelungstypen
 
@@ -85,5 +95,6 @@ Jede 1% Reduktion der Versiegelungsfläche senkt die mittlere LST um **0,03°C**
 ## Sources
 
 - [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] — Kühlkoeffizient −0,03°C/%
-- [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] — Versickerungstabelle, Kosten, Bayern-Kontext
+- [[wiki/sources/dwa-a138-lfu-regenwasser-bayern]] — Primärquelle Abflussbeiwerte (DWA-A138 / LfU Bayern); Gründach-Werte; kf-Bodendaten
+- [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] — Kosten, ergänzende Bandbreiten, Bayern-Kontext
 - [[wiki/sources/uba-texte141-2021-entsiegelung]] — Rechtslage, Bodenfunktionen, nationale Datenbasis

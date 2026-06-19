@@ -23,14 +23,19 @@ TU München's forestry science department (Forstwissenschaft) is the institution
 
 - Produced the tree cooling quantification methodology (Rötzer et al.).
 - Located within [[wiki/entities/muenchen]] — directly relevant to the city it studies.
+- Pretzsch's chair (Forest Growth and Yield Science, Center of Life and Food Sciences Weihenstephan) produced the worldwide urban tree crown allometry study (22 species, 39,057 trees) and the South Germany urban tree growth study including Würzburg.
 
 ## Connections
 
 - [[wiki/entities/thomas-roetzer]]
 - [[wiki/entities/muenchen]]
+- [[wiki/entities/wuerzburg]] — Würzburg is a study city in Moser-Reischl 2021 (TU München)
 - [[wiki/concepts/green-infrastructure]]
 - [[wiki/concepts/evapotranspiration]]
+- [[wiki/concepts/tree-species-selection]]
 
 ## Sources
 
 - [[wiki/sources/gegen-hitze-kuehlleistung-baum]]
+- [[wiki/sources/pretzsch-2015-urban-tree-crown-allometry]]
+- [[wiki/sources/moser-reischl-2021-urban-tree-growth-germany]]

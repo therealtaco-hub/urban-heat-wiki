@@ -1,10 +1,41 @@
 # Activity Log
 
+## [2026-06-19] ingest | 3 Allometrie- & Kronendeckungs-Quellen
+- Raw files: Moser-Reischl et al. (2021) Arboric. & Urban For. 47(4), Pretzsch et al. (2015) UFUG 14(3), Gray et al. (2021) Forest Ecol. Mgmt. 501
+- Files created (3): wiki/sources/moser-reischl-2021-urban-tree-growth-germany.md, wiki/sources/pretzsch-2015-urban-tree-crown-allometry.md, wiki/sources/gray-2021-canopy-cover-prediction.md
+- Files updated (8): wiki/concepts/tree-species-selection.md (allometric type table, Würzburg CPA data, park/street effect), wiki/simulation-logic.md (kronenfläche-Berechnung konkretisiert; 50m²-Default-Caveat; Gray-Validierung des Überlappungsmodells; 3 neue Quellen), wiki/entities/thomas-roetzer.md (sources 3→5; Pretzsch 2015 + Moser-Reischl 2021 ergänzt), wiki/entities/wuerzburg.md (Moser-Reischl als Direktstudie ergänzt), wiki/entities/tu-muenchen.md (sources 1→3; Pretzsch + Moser-Reischl ergänzt), wiki/overview.md (Kronenfläche-Lücke geschlossen; Source-Count-Tabelle erweitert), index.md, log.md
+- Total sources now: 16 | Total pages: 36
+- Key contribution (Moser-Reischl 2021): Würzburg ist direkte Studienstadt — Allometrie-Tabellen für Tilia/Platanus/Robinia/Aesculus aus Würzburg-Messungen (n=75–89 je Art). Schließt offenes TODO "Kronenfläche der Bäume berechnen": CPA = π × (kronenbrei/2)² als Primärformel; allometrischer Fallback CPA = exp(a) × DBH^b.
+- Key contribution (Pretzsch 2015): Alle 4 Würzburg-Hauptarten = Allometrischer Typ 1 (größte Kronenfläche aller 22 Arten). Type-1-Mittel bei DBH=25cm: CPA 65,6 m² > unser Default 50 m².
+- Key contribution (Gray 2021): Beer-Lambert/Crookston & Stage Überlappungsmodell empirisch validiert. RMSE ~12–14 % Cover. Modell unterschätzt bei >90 % Deckung — für urbane Würzburg-Szenarien (Deckung typisch <60 %) unkritisch.
+
 Append-only record of all wiki activity. Most recent entry at top.
 
 Parse tip: `grep "^## \[" log.md | head -10` gives the 10 most recent entries.
 
 ---
+
+## [2026-06-10] update | Pflanzpotenzial je Zelle über Versiegelungsgrad (Teil 2)
+- Schritt "Pflanzpotenzial je Zelle" ergänzt: seal_pct (flächengew. Versiegelungsgrad aus
+  ATKIS/OSM) begrenzt n_trees_max = floor(pflanzbare Fläche / 25 m²), nicht den Kühl-Nenner.
+  Orthogonal zum Überlappungsmodell. Quellen Arnold & Gibbons 1996 + SEAL_RATE_BY_TYPE-Literatur.
+- Files updated (1): wiki/simulation-logic.md
+
+## [2026-06-10] update | Kronendeckung auf Überlappungsmodell (Crookston & Stage 1999)
+- Schritt 1 der Baum-Simulationslogik von naiver Kronensumme auf projizierte Kronendeckung
+  umgestellt: `total = (1 − exp(−(existing_ratio + new_ratio))) × 100`, Δ°C nur auf
+  `effective_new_pct`. Headroom-Cap entfällt. Quellen Crookston & Stage 1999 / Jennings 1999 ergänzt.
+- Output-JSON: `delta_coverage_pct` → `crown_area_ratio` + `effective_new_pct` + `total_coverage_pct`.
+- Files updated (1): wiki/simulation-logic.md
+
+## [2026-06-08] ingest | DWA-A138 Regenwasserbewirtschaftung Bayern (LfU / Florian Ettinger)
+- Raw file: dwa_a138_lfu.pdf
+- Files created (1): wiki/sources/dwa-a138-lfu-regenwasser-bayern.md
+- Files updated (5): wiki/concepts/entsiegelung.md (Abflussbeiwert-Tabelle auf DWA-A138 umgestellt, Gründach-Zeilen ergänzt, Primärquelle deklariert), wiki/simulation-logic.md (Quellverweis auf DWA-A138 aktualisiert, Asphalt-Diskrepanz dokumentiert), wiki/overview.md (Quellzähler + Syntheseabsatz), index.md, log.md
+- Total sources now: 13 | Total pages: 33
+- Key contribution: DWA-A138 / LfU Bayern ist die autoritative Primärquelle für alle Abflussbeiwerte in simulation_params.py — bislang nur sekundär über Leitfaden Bayreuth 2024 referenziert
+- Neue Werte: Pflaster dichte Fugen 0,75; Verbundsteine/Sickersteine 0,25; Gründach-Staffelung (0,3/0,5/0,7 je Aufbaudicke)
+- Diskrepanz dokumentiert: Asphalt DWA-A138 = 0,9 vs. simulation_params.py = 0,95 (beide innerhalb Bandbreite; Anpassung optional)
 
 ## [2026-05-21] ingest | Onačillová et al. 2022 — LST Downscaling Landsat+Sentinel-2 in GEE
 - Raw file: remotesensing-14-04076-v2.pdf

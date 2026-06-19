@@ -45,3 +45,4 @@ Würzburg lies in a geographically protected valley (the Main river valley) and 
 
 - [[wiki/sources/garcia-de-leon-lst-trees-munich]] — Würzburg researchers, Munich study (directly analogous)
 - [[wiki/sources/uba-texte141-2021-entsiegelung]] — Copernicus Imperviousness Layer als freie Datenquelle für Würzburgs Versiegelungsgrad
+- [[wiki/sources/moser-reischl-2021-urban-tree-growth-germany]] — **Würzburg is a direct study city** (n=75–89 trees per species, 2014–2017); allometric tables for Tilia, Platanus, Robinia, Aesculus measured in Würzburg

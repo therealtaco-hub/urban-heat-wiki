@@ -1,8 +1,8 @@
 ---
 title: "Wiki Index"
-updated: 2026-05-21
-total_sources: 12
-total_pages: 32
+updated: 2026-06-19
+total_sources: 16
+total_pages: 36
 ---
 
 # Urban Heat Mapping — Wiki Index
@@ -32,6 +32,10 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/sources/leitfaden-flaechenentsiegelung-2024]] — Leitfaden Flächenentsiegelung (Landkreis Bayreuth, 2024): Abflussbeiwert-Tabelle nach Belagstyp; 45% Germany sealed; Kosten
 - [[wiki/sources/uba-texte141-2021-entsiegelung]] — Pannicke-Prochnow et al. (UBA Texte 141/2021): Entsiegelungspotenziale; Rechtslage; Copernicus Imperviousness Layer; doppelte Innenentwicklung
 - [[wiki/sources/onacillova-2022-lst-downscaling]] — Onačillová et al. (2022, Remote Sensing): Landsat 8 LST → 10 m via Sentinel-2 + multiple linear regression; free GEE app; step-by-step guide for Würzburg **[KEY: LST-DATENERFASSUNG]**
+- [[wiki/sources/dwa-a138-lfu-regenwasser-bayern]] — LfU Bayern / Florian Ettinger: DWA-A138 Regenwasserbewirtschaftung Bayern; vollständige Abflussbeiwert-Tabelle (Primärquelle); kf-Werte; Versickerungsanlagentypen **[KEY: ABFLUSSBEIWERTE]**
+- [[wiki/sources/moser-reischl-2021-urban-tree-growth-germany]] — Moser-Reischl et al. 2021 (Arboricult. & Urban For. 47(4)): CPA/DBH allometry for 4 species in 6 South German cities **incl. Würzburg directly** (n=75–89/species); park > street crown size **[KEY: KRONENFLÄCHE WÜRZBURG]**
+- [[wiki/sources/pretzsch-2015-urban-tree-crown-allometry]] — Pretzsch et al. 2015 (UFUG 14(3)):  Crown allometry for 22 species worldwide (39,057 trees); Tilia/Platanus/Aesculus/Robinia = Allometric Type 1 (largest crowns); cr25 values **[KEY: ALLOMETRIE-KLASSIFIKATION]**
+- [[wiki/sources/gray-2021-canopy-cover-prediction]] — Gray et al. 2021 (Forest Ecol. Mgmt.): Empirical validation of Beer-Lambert/Crookston & Stage crown overlap model; OCF_e=0.015; RMSE ~12–14% cover
 
 ---
 
@@ -46,7 +50,7 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/concepts/remote-sensing-methods]] — Landsat LST, Sentinel-2 downscaling to 10 m (GEE), tree crown segmentation, NDVI/NDBI; full data pipeline for Würzburg (4 sources)
 - [[wiki/concepts/local-climate-zones]] — LCZ classification; WRF input; simulation framework (2 sources)
 - [[wiki/concepts/urban-morphology]] — Building density, sky view factor, LCZ; morphology effects on LST (2 sources)
-- [[wiki/concepts/tree-species-selection]] — Drought tolerance vs. cooling tradeoff; LB3 vs. LB6 species (1 source)
+- [[wiki/concepts/tree-species-selection]] — Drought tolerance vs. cooling tradeoff; LB3/LB6 transpiration; allometric type classification; Würzburg species CPA table (3 sources)
 - [[wiki/concepts/entsiegelung]] — Surface unsealing; ΔTemp = −0,03°C/%; Abflussbeiwert-Tabelle; Mehrfachnutzen; Vollentsiegelung vs. Teilentsiegelung (3 sources)
 
 ---

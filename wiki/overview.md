@@ -8,7 +8,7 @@ updated: 2026-05-20
 
 # Urban Heat Mapping — Overview
 
-*Last updated: 2026-05-21 | Sources ingested: 12 (1 article + 8 papers/theses + 3 Entsiegelung)*
+*Last updated: 2026-06-19 | Sources ingested: 16 (1 article + 11 papers/theses + 4 Entsiegelung/Hydrologie)*
 
 ---
 
@@ -18,7 +18,9 @@ Urban Heat Islands arise where sealed surfaces replace vegetation, converting so
 
 The project target — **Würzburg** — sits firmly in this Central European zone where tree cooling is most effective. The methodological template for the project already exists in the literature: the García de León et al. study applies precisely the same approach (downscaled LST + individual tree crown data + land use classification) to Munich, conducted by researchers at the University of Würzburg itself. Adapting this to Würzburg is the core analytical task. The practical barrier to LST data acquisition is now closed: a free public Google Earth Engine application (Onačillová et al. 2022) delivers **10 m LST** for any area of interest by fusing Landsat 8/9 thermal data with Sentinel-2 optical bands — no custom code required. Step-by-step instructions are in [[wiki/methodischer-plan-wuerzburg]] and [[wiki/sources/onacillova-2022-lst-downscaling]].
 
-A second intervention pathway — **surface unsealing (Entsiegelung)** — is now quantified: each 1% reduction in sealed area reduces LST by −0,03°C *(Tervooren 2015, Potsdam, R²=0,75–0,80)*. This is ~2.3× weaker per percentage point than tree planting (−0,069°C/%), but unsealing delivers co-benefits that trees alone cannot: precipitation infiltration, groundwater recharge, and biodiversity. Practical surface options and their infiltration coefficients (Abflussbeiwert) are documented for the Bavaria context *(Leitfaden Bayreuth 2024)*. The Copernicus Imperviousness Layer provides free GIS data on Würzburg's current sealing state *(UBA 2021)*.
+A key data gap for the tree simulation is now closed: Würzburg is a **direct study city** in Moser-Reischl et al. (2021, Arboricult. & Urban For.), which provides species-specific crown projection area (CPA) allometries measured from 75–89 trees per species in Würzburg itself (Tilia, Platanus, Robinia, Aesculus). The `kronenfläche_m2` for each of the 44,647 Baumkataster trees can now be computed directly from the existing `kronenbrei` field (`CPA = π × (kronenbrei/2)²`) or, when that is missing, from the allometric regression (`CPA = exp(a) × DBH^b`). The worldwide allometric reference (Pretzsch et al. 2015, 22 species, 39,057 trees) confirms all four Würzburg species belong to Allometric Type 1 — the largest-crowned class — and that the current simulation default of 50 m² per tree is conservative for mature trees (Platanus Würzburg mean: 124 m²) but generous for saplings. The Beer-Lambert crown overlap model used in `/api/simulate/baeume` (Crookston & Stage 1999) is empirically validated by Gray et al. (2021): it performs well at the low-to-moderate canopy densities typical of urban Würzburg, with a known underestimation bias at >90% cover that is unlikely to be reached in practice.
+
+A second intervention pathway — **surface unsealing (Entsiegelung)** — is now quantified: each 1% reduction in sealed area reduces LST by −0,03°C *(Tervooren 2015, Potsdam, R²=0,75–0,80)*. This is ~2.3× weaker per percentage point than tree planting (−0,069°C/%), but unsealing delivers co-benefits that trees alone cannot: precipitation infiltration, groundwater recharge, and biodiversity. The infiltration coefficients (Abflussbeiwerte) for all relevant surface types are sourced directly from the authoritative Bavarian engineering standard: **DWA-A138 / LfU Bayern** *(Ettinger, LfU Referat 67)* — the same values that back the `/api/simulate/wasser` endpoint. Practical cost data and broader surface ranges are documented in *(Leitfaden Bayreuth 2024)*. The Copernicus Imperviousness Layer provides free GIS data on Würzburg's current sealing state *(UBA 2021)*.
 
 Three complicating factors are now in the literature base: (1) drought-tolerant tree species deliver ~11% less transpiration cooling than moisture-adapted species — a tradeoff for long-term planting strategy *(Stratopoulos-Le Chalony 2020)*; (2) the cooling threshold for NDVI is ~0.4 — areas below this show minimal response *(Li et al.)*; (3) LAI and transpiration are the two key measurable parameters linking green infrastructure to temperature reduction *(Stangl et al. 2019)*. For the simulation component, LCZ+WRF methodology provides a validated framework *(Muhammad 2021, TUM)*.
 
@@ -77,11 +79,13 @@ Priority:
 | LST–tree correlation / remote sensing | 4 |
 | Green infrastructure / tree cooling | 5 |
 | Impervious surface / Versiegelung | 2 |
-| Entsiegelung / surface unsealing | 3 |
+| Entsiegelung / surface unsealing | 4 |
 | Urban morphology / LCZ | 2 |
 | Simulation (WRF, LCZ) | 1 |
 | Policy (Bavaria) | 1 |
 | Species selection / drought tradeoff | 1 |
+| Tree allometry / crown size | 2 |
+| Canopy cover modeling | 1 |
 | Health impacts | 0 |
 | Equity / vulnerable populations | 0 |
-| Würzburg-specific | 0 (indirect: Würzburg researchers studied Munich) |
+| Würzburg-specific | **1 direct** (Moser-Reischl 2021) + 1 indirect (Würzburg researchers studied Munich) |
