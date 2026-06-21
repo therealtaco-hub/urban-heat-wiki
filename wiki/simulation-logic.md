@@ -29,17 +29,16 @@ Dieses Dokument ist die autoritative Quelle für die Berechnungslogik der beiden
 ### Inputs
 
 ```
-n_trees:      int    — Anzahl Neupflanzungen
-area_m2:      float  — Bezugsfläche (z.B. Stadtbezirk oder ausgewähltes Polygon)
-land_use:     str    — "mixed" | "recreational" | "overall" (Standard: "mixed")
-species_type: str    — "lb3" | "lb6" (Standard: "lb6")
+n_trees:               int    — Anzahl Neupflanzungen
+area_m2:               float  — Bezugsfläche (z.B. Stadtbezirk oder ausgewähltes Polygon)
+existing_coverage_pct: float  — Bestehende Kronendeckung der Fläche in % (0–100, Default 0)
 ```
 
 ### Berechnung
 
 **Schritt 1 — Projizierte Kronendeckung (negativ-exponentielles Überlappungsmodell):**
 ```
-crown_area_total = n_trees × CROWN_AREA_M2_DEFAULT      # 50 m² pro Baum (Endausbau-Annahme)
+crown_area_total = n_trees × CROWN_AREA_M2_DEFAULT      # 50 m² pro Baum (konservativer Default, kein Endausbau — Kronengröße in Überarbeitung, siehe Backlog Task 8)
 new_ratio        = crown_area_total / area_m2           # Flächen-Verhältnis (kein Prozent)
 
 # Bestand → äquivalentes Verhältnis (inverse Formel, log-sicher bei existing → 100):
@@ -64,14 +63,14 @@ delta_lst_celsius = coeff × effective_new_pct
 
 > [!note] Die projizierte Kronendeckung ist genau die Größe, gegen die der
 > García-de-León-Koeffizient kalibriert ist (Vereinigungsfläche der Kronen, nicht Summe).
-> Quellen: Crookston & Stage (1999, USDA RMRS-GTR-24, Primärquelle der Gleichung);
+> Quellen: [[wiki/sources/crookston-stage-1999-cover-equation]] (USDA RMRS-GTR-24, Primärquelle der Gleichung);
 > Jennings et al. (1999, *Forestry* 72(1), canopy cover vs. closure); García de León et al. (2020).
 
 **Pflanzpotenzial je Zelle (Versiegelungsgrad):**
 ```
 seal_pct           = Σ(Überlappungsfläche × seal_rate) / Zellfläche   # je 100-m-Kachel, [0,1]
 pflanzbare_flaeche = Zellfläche × (1 − seal_pct)
-n_trees_max        = floor(pflanzbare_flaeche / MIN_GROUND_PER_TREE_M2)   # 25 m²/Baum
+n_trees_max        = floor(pflanzbare_flaeche / MIN_GROUND_PER_TREE_M2)   # 100 m²/Baum (FLL-Richtlinie, Bäume 2. Ordnung)
 ```
 Versiegelter Boden (Dächer, Straßen) trägt keinen Stamm → der Versiegelungsgrad begrenzt die
 **Stammzahl**, **nicht** den Kühl-Nenner `area_m2` (Kronen überhängen versiegelten Boden; der
@@ -80,13 +79,12 @@ ATKIS/OSM-Typ aus Literaturwerten (UBA/DIN/Bayreuth; Arnold & Gibbons 1996). Kac
 ATKIS-Siedlungs-/Verkehrsfläche gelten als unversiegelt (Grün-/Freifläche). Orthogonal zum
 Überlappungsmodell: Poisson begrenzt die Deckung *pro Krone*, der Versiegelungsgrad die *Stammzahl*.
 
-**Schritt 3 — Transpirationskühlleistung:**
+**Schritt 3 — Transpirationskühlleistung (v2, noch nicht implementiert):**
 ```
-transpiration_rate = TRANSPIRATION_LB3  # oder LB6 je nach species_type
-# Tageswert: Gesamtkronenfläche × Transpirationsrate
-daily_kg = crown_area_total × transpiration_rate
-# Jahreskühlleistung in kWh
-cooling_kwh_year = daily_kg × 365 × LATENT_HEAT_KWH_PER_KG
+# Geplant: Transpirationskühlleistung in kWh
+# transpiration_rate = TRANSPIRATION_LB3 / LB6
+# cooling_kwh_year   = n_trees × CROWN_AREA_M2_DEFAULT × transpiration_rate × 365 × LATENT_HEAT_KWH_PER_KG
+# Noch nicht im Endpoint — kein Output-Feld cooling_kwh_year in v1.
 ```
 
 ### Output (JSON)
@@ -95,21 +93,21 @@ cooling_kwh_year = daily_kg × 365 × LATENT_HEAT_KWH_PER_KG
 {
   "n_trees": 50,
   "area_m2": 120000,
-  "crown_area_ratio": 0.021,
+  "existing_coverage_pct": 0.0,
+  "new_crown_area_ratio": 0.021,
   "effective_new_pct": 2.06,
   "total_coverage_pct": 2.06,
   "delta_lst_celsius": -0.17,
-  "cooling_kwh_year": 110400,
-  "species_type": "lb6",
-  "land_use": "mixed",
+  "co2_kg_year": 625.0,
   "coefficients_used": {
-    "lst_per_pct": -0.083,
-    "transpiration_kg_m2_day": 0.17,
-    "crown_area_m2": 50.0
+    "lst_per_pct_canopy": -0.083,
+    "land_use": "mixed",
+    "crown_area_m2": 50.0,
+    "co2_kg_per_tree_year": 12.5
   },
   "caveats": [
     "Koeffizient aus München (Würzburg-Forscher) — nicht lokal kalibriert",
-    "Kronenfläche 50 m² ist Literatur-Mittelwert, keine Würzburg-Messung",
+    "50 m² Kronenfläche ist konservativer Default für mittelalte Bäume",
     "LST ≠ Lufttemperatur"
   ]
 }
