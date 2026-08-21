@@ -1,8 +1,8 @@
 ---
 title: "Wiki Index"
-updated: 2026-06-19
-total_sources: 16
-total_pages: 36
+updated: 2026-08-18
+total_sources: 25
+total_pages: 49
 ---
 
 # Urban Heat Mapping — Wiki Index
@@ -13,7 +13,7 @@ Master catalog of all wiki pages. Read this before answering any query.
 
 ## Overview
 
-- [[wiki/overview]] — Evolving synthesis, project goals, open questions, source counts (11 sources)
+- [[wiki/overview]] — Evolving synthesis, project goals, open questions, source counts (25 sources)
 
 ---
 
@@ -36,6 +36,15 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/sources/moser-reischl-2021-urban-tree-growth-germany]] — Moser-Reischl et al. 2021 (Arboricult. & Urban For. 47(4)): CPA/DBH allometry for 4 species in 6 South German cities **incl. Würzburg directly** (n=75–89/species); park > street crown size **[KEY: KRONENFLÄCHE WÜRZBURG]**
 - [[wiki/sources/pretzsch-2015-urban-tree-crown-allometry]] — Pretzsch et al. 2015 (UFUG 14(3)):  Crown allometry for 22 species worldwide (39,057 trees); Tilia/Platanus/Aesculus/Robinia = Allometric Type 1 (largest crowns); cr25 values **[KEY: ALLOMETRIE-KLASSIFIKATION]**
 - [[wiki/sources/gray-2021-canopy-cover-prediction]] — Gray et al. 2021 (Forest Ecol. Mgmt.): Empirical validation of Beer-Lambert/Crookston & Stage crown overlap model; OCF_e=0.015; RMSE ~12–14% cover
+- [[wiki/sources/birkmann-2021-ludwigsburg-vulnerability-scenarios]] — Birkmann et al. 2021 (Climatic Change, ZURES project): ward-level future vulnerability scenarios (age + welfare-receipt) for Ludwigsburg, closest German mid-sized-city analog **[KEY: HVI CASE-STUDY-CITY]**
+- [[wiki/sources/niu-2021-hvi-systematic-review]] — Niu et al. 2021 (Curr. Clim. Change Rep.): systematic review of 13 validated HVI studies; PCA dominant but unstable; weak health-outcome validation **[KEY: HVI METHODOLOGY]**
+- [[wiki/sources/chen-2018-yrd-heat-health-risk]] — Chen et al. 2018 (Int. J. Health Geogr.): 250m-grid composite heat-health-risk index, Yangtze River Delta; PCA vulnerability, multiplicative Crichton's Risk Triangle
+- [[wiki/sources/aubrecht-oezceylan-2013-ncr-heat-risk]] — Aubrecht & Özceylan 2013 (Environment International): census-block HSRI, Washington D.C. metro; equal-weighted additive HVI **[KEY: CLOSEST HVI METHODOLOGICAL PRECEDENT]**
+- [[wiki/sources/bandaranayake-2026-lahti-digital-twin]] — Bandaranayake et al. 2026 (DESRIST): ML-based digital twin, Lahti Finland; LST-only, no vulnerability; user-trust gap despite R²=0.96
+- [[wiki/sources/aydt-2026-duct-singapore]] — Aydt et al. 2026 (City & Environment Interactions): DUCT — WRF+PALM-4U coupled digital twin, Singapore; up to 6,144 core-hours/run, no vulnerability dimension
+- [[wiki/sources/chen-2026-umep-target]] — Chen et al. 2026 (Environ. Modelling & Software): UMEP-TARGET QGIS plugin, Zurich; lightweight energy-balance model, <1hr desktop runtime, no vulnerability
+- [[wiki/sources/smith-2009-manchester-gis-dss]] — Smith et al. 2009 (ICUC7): early GIS DSS forerunner, Greater Manchester; pre-calculated, no live simulation
+- [[wiki/sources/cavan-2014-grabs-star-tools]] — Cavan et al. 2014 (Handbook of Climate Change Adaptation): GRaBS Assessment Tool + STAR Tools, 10 EU cities **[KEY: CLOSEST PRIOR TOOL — heat & runoff as separate modules]**
 
 ---
 
@@ -52,6 +61,8 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/concepts/urban-morphology]] — Building density, sky view factor, LCZ; morphology effects on LST (2 sources)
 - [[wiki/concepts/tree-species-selection]] — Drought tolerance vs. cooling tradeoff; LB3/LB6 transpiration; allometric type classification; Würzburg species CPA table (3 sources)
 - [[wiki/concepts/entsiegelung]] — Surface unsealing; ΔTemp = −0,03°C/%; Abflussbeiwert-Tabelle; Mehrfachnutzen; Vollentsiegelung vs. Teilentsiegelung (3 sources)
+- [[wiki/concepts/heat-vulnerability-index]] — HVI construction methodology: PCA vs. fixed weighting, additive vs. multiplicative, spatial units, validation limits (4 sources)
+- [[wiki/concepts/interactive-climate-tools]] — Landscape of prior climate-adaptation DSS/digital-twin tools; accessibility-vs-completeness trade-off; no prior tool integrates vulnerability (5 sources)
 
 ---
 
@@ -61,6 +72,8 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/entities/wuerzburg]] — **Target city**; University of Würzburg researchers; heat problem; project goals
 - [[wiki/entities/muenchen]] — Case study; high impervious cover; ~2,000 trees/year net loss; García de León study location
 - [[wiki/entities/nuernberg]] — Co-cited with Munich as Germany's most sealed cities
+- [[wiki/entities/ludwigsburg]] — Closest German mid-sized-city HVI comparator (~93k inhabitants, Stuttgart region); Birkmann et al. 2021 / ZURES project
+- [[wiki/entities/manchester]] — Origin city of the closest prior interactive tool (GRaBS Assessment Tool + STAR Tools); Smith 2009 + Cavan 2014
 
 ### Researchers
 - [[wiki/entities/thomas-roetzer]] — TU München; tree cooling quantification; co-author on Würzburg/Munich paper (3 sources)

@@ -64,7 +64,7 @@ delta_lst_celsius = coeff × effective_new_pct
 > [!note] Die projizierte Kronendeckung ist genau die Größe, gegen die der
 > García-de-León-Koeffizient kalibriert ist (Vereinigungsfläche der Kronen, nicht Summe).
 > Quellen: [[wiki/sources/crookston-stage-1999-cover-equation]] (USDA RMRS-GTR-24, Primärquelle der Gleichung);
-> Jennings et al. (1999, *Forestry* 72(1), canopy cover vs. closure); García de León et al. (2020).
+> Jennings et al. (1999, *Forestry* 72(1), canopy cover vs. closure); García de León et al. (2025).
 
 **Pflanzpotenzial je Zelle (Versiegelungsgrad):**
 ```
@@ -128,43 +128,43 @@ ATKIS-Siedlungs-/Verkehrsfläche gelten als unversiegelt (Grün-/Freifläche). O
 
 | Koeffizient | Wert | Quelle |
 |---|---|---|
-| ΔLST pro 1 % Entsiegelung | −0,03 °C | [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] |
-| Jahresniederschlag Würzburg | ~574 mm/Jahr | DWD Klimanormalperiode 1991–2020, Station 05705 |
+| Jahresniederschlag Würzburg | ~574 mm/Jahr (0,5735 m) | DWD Klimanormalperiode 1991–2020, Station 05705 |
 | Abflussbeiwerte nach Belagstyp | siehe Tabelle | [[wiki/sources/dwa-a138-lfu-regenwasser-bayern]] (Primärquelle, DWA-A138 / LfU Bayern) |
+| ΔLST pro 1 % Entsiegelung | −0,03 °C | [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] |
+
+> [!warning] Der LST-Koeffizient `LST_PER_PCT_UNSEALING` (−0,03 °C/%) existiert zwar in
+> `simulation_params.py`, wird im Endpoint v1 aber **bewusst nicht angewendet**: Der
+> Tervooren-Wert ist auf Stadtbezirksebene kalibriert und nicht für Einzelflächen gültig.
+> Die Wasser-Simulation liefert daher **kein** `delta_lst_celsius`. Falls v2 eine
+> Entsiegelungs-Temperaturwirkung ergänzt, muss diese auf Bezugsgebiets-Ebene erfolgen.
 
 ### Inputs
 
 ```
-area_m2:       float  — Entsiegelungsfläche
-from_surface:  str    — Ausgangsbelag (z.B. "asphalt")
-to_surface:    str    — Zielbelag (z.B. "schotterrasen", "rasengitter", "rasendecke")
-reference_m2:  float  — Gesamtfläche des Bezugsgebiets (für LST-%-Berechnung)
+area_m2:       float  — Zu entsiegelnde Fläche (> 0)
+from_surface:  str    — Ausgangsbelag (Default "asphalt")
+to_surface:    str    — Zielbelag    (Default "schotterrasen")
 ```
+Unbekannte Belagstypen (nicht in `RUNOFF_COEFFICIENTS`) → HTTP 422.
 
-### Berechnung
+### Berechnung (Rational-Formel, nur Versickerung)
 
-**Schritt 1 — LST-Reduktion:**
 ```
-# Prozentsatz der entsiegelten Fläche relativ zum Bezugsgebiet
-unsealing_pct = area_m2 / reference_m2 × 100
-delta_lst_celsius = LST_PER_PCT_UNSEALING × unsealing_pct    # –0.03 °C pro %
-```
+C_from   = RUNOFF_COEFFICIENTS[from_surface]   # z.B. 0.90 für Asphalt
+C_to     = RUNOFF_COEFFICIENTS[to_surface]     # z.B. 0.30 für Schotterrasen
+delta_C  = C_from - C_to                        # Abflussbeiwert-Differenz
 
-**Schritt 2 — Versickerungszunahme (Rational-Formel):**
+infiltration_m3_year = max(0, area_m2 × ANNUAL_RAINFALL_WUERZBURG_M × delta_C)
+retention_pct        = (1 − C_to) × 100
+context_persons      = infiltration_m3_year / CONTEXT_PERSONS_M3_PER_YEAR   # 46,4 m³ (BDEW 2023, 127 L/Tag)
 ```
-C_current = RUNOFF_COEFFICIENTS[from_surface]   # z.B. 0.95 für Asphalt
-C_target  = RUNOFF_COEFFICIENTS[to_surface]     # z.B. 0.30 für Schotterrasen
-delta_C   = C_current - C_target                # Abflussbeiwert-Differenz
-
-# Jährliche Versickerungszunahme
-infiltration_m3_year = area_m2 × ANNUAL_RAINFALL_WUERZBURG_M × delta_C
-```
+`max(0, …)` kappt den Fall, dass der Zielbelag stärker versiegelt ist als der Ausgangsbelag
+(`delta_C ≤ 0`) — dann wird zusätzlich ein Caveat vorangestellt.
 
 **Beispiel:** 1.000 m² Asphalt → Schotterrasen:
 ```
-delta_C = 0.95 – 0.30 = 0.65
-infiltration = 1000 × 0.60 × 0.65 = 390 m³/Jahr
-delta_lst = (1000 / reference_m2 × 100) × (–0.03)
+delta_C      = 0.90 − 0.30 = 0.60
+infiltration = 1000 × 0.5735 × 0.60 = 344,1 m³/Jahr
 ```
 
 ### Output (JSON)
@@ -174,25 +174,57 @@ delta_lst = (1000 / reference_m2 × 100) × (–0.03)
   "area_m2": 1000,
   "from_surface": "asphalt",
   "to_surface": "schotterrasen",
-  "reference_m2": 500000,
-  "unsealing_pct": 0.2,
-  "delta_lst_celsius": -0.006,
-  "infiltration_m3_year": 390.0,
-  "runoff_coefficients": { "from": 0.95, "to": 0.30, "delta": 0.65 },
+  "infiltration_m3_year": 344.1,
+  "retention_pct": 70.0,
+  "context_persons": 7.4,
+  "runoff_coefficients": { "from": 0.9, "to": 0.3, "delta": 0.6 },
+  "rainfall_m_year": 0.5735,
   "caveats": [
-    "LST-Koeffizient aus Potsdam (Cfb) — Würzburg (Dfb) nicht direkt validiert",
-    "Rational-Formel setzt homogenen Niederschlag und Bodendurchlässigkeit voraus",
-    "Bodenversickerungskapazität lokal verschieden — LfU Bayern-Daten für präzise C-Werte"
+    "Abflussbeiwerte nach Leitfaden Landkreis Bayreuth 2024 — Literaturwerte, nicht vor Ort gemessen.",
+    "Niederschlag: DWD Station Würzburg (573,5 mm/Jahr, Referenzperiode 1991–2020).",
+    "Kein Δ°C in v1 — Tervooren-Koeffizient gilt auf Stadtbezirksebene, nicht für Einzelflächen.",
+    "Versiegelungsgrade sind Literaturwerte (v1); v2 (TODO): gemessene Per-Zellen-Versiegelung."
   ]
 }
 ```
 
 ### Bekannte Einschränkungen
 
-- LST-Koeffizient aus Potsdam (Cfb), Würzburg ist Dfb — Klimazonentransfer plausibel, nicht validiert.
+- **Kein `delta_lst_celsius` in v1** — der Tervooren-Koeffizient gilt auf Stadtbezirks-, nicht auf Einzelflächenebene (Begründung + v2-Ansatz unten).
 - Rational-Formel nimmt homogene Bodendurchlässigkeit an; lokale Bodenart (LfU Bayern, kf-Werte aus DWA-A138) würde Präzision erhöhen.
-- Asphalt-Abflussbeiwert: DWA-A138 gibt 0,9; `simulation_params.py` verwendet 0,95 — innerhalb Bandbreite, DWA-A138 ist Primärquelle.
-- Große Entsiegelungsflächen lösen evtl. Verdunstungskühleffekt aus (Schwammstadt-Prinzip) — dieser Effekt ist in der LST-Formel implizit enthalten (Tervooren misst Nettoeffekt), aber nicht separat quantifiziert.
+- Asphalt-Abflussbeiwert: `simulation_params.py` verwendet Ψ = 0,90 im Einklang mit DWA-A138 (Primärquelle); der frühere Wert 0,95 aus dem Leitfaden Bayreuth wurde angeglichen.
+- Große Entsiegelungsflächen lösen evtl. einen Verdunstungskühleffekt aus (Schwammstadt-Prinzip); dieser ist in v1 **nicht** quantifiziert (kein Δ°C — siehe unten).
+
+### Warum die Entsiegelung in v1 kein Δ°C liefert — und wie v2 es ergänzen würde
+
+Der Koeffizient `LST_PER_PCT_UNSEALING = −0,03 °C/%` (Tervooren 2015, Potsdam) ist in
+`simulation_params.py` hinterlegt, wird im Endpoint aber **bewusst nicht angewendet**.
+
+**Wie er gedacht war.** Tervooren misst, dass die mittlere Oberflächentemperatur um
+etwa −0,03 °C je Prozentpunkt **Entsiegelung** sinkt — relativ zur Gesamtfläche eines
+Bezugsgebiets. Die geplante Rechnung hätte einen dritten Parameter `reference_m2`
+(z. B. die Fläche eines Stadtbezirks) gebraucht:
+
+```
+unsealing_pct     = entsiegelte_fläche / reference_m2 × 100
+delta_lst_celsius = −0,03 × unsealing_pct
+```
+
+Der Effekt ist also **relativ**: 1.000 m² Asphalt aufzureißen senkt die mittlere
+Temperatur eines ganzen Bezirks praktisch nicht, auf einem kleinen Hof dagegen spürbar.
+
+**Warum v1 darauf verzichtet.** Der Koeffizient ist auf **Aggregatebene** kalibriert
+(Grünvolumen vs. mittlere LST über große Flächen). Auf eine einzelne ausgewählte
+Polygonfläche angewendet, liefert er physikalisch unsinnige Mikro-Werte (z. B. −0,006 °C),
+die eine Genauigkeit vortäuschen, die die Datengrundlage nicht hergibt. Die
+Wasser-Simulation gibt deshalb in v1 ausschließlich den flächenscharf berechenbaren
+Wassernutzen aus (Versickerung via Rational-Formel) und **kein** Δ°C.
+
+**v2-Ansatz.** Die Temperaturwirkung der Entsiegelung sollte **nicht pro Polygon**,
+sondern auf **Bezugsgebiets-Ebene** berechnet und ausgewiesen werden — also als KPI der
+Form „Δ°C für diesen Stadtbezirk bei X % Gesamtentsiegelung" statt als Wert pro
+ausgewählter Einzelfläche. Erst dann ist die Kalibrierungs-Ebene des Koeffizienten
+gewahrt.
 
 ---
 
@@ -200,7 +232,7 @@ delta_lst = (1000 / reference_m2 × 100) × (–0.03)
 
 | | Baumpflanzung | Entsiegelung |
 |---|---|---|
-| LST-Koeffizient | −0,083 °C/% (Mischgebiet) | −0,030 °C/% |
+| LST-Koeffizient | −0,083 °C/% (Mischgebiet, **angewendet**) | −0,030 °C/% (vorhanden, **in v1 nicht angewendet** — nur Stadtbezirksebene) |
 | Stärke pro Prozentpunkt | **~2,8× stärker** | Referenz |
 | Zusatznutzen | Transpirationskühlleistung (kWh) | Versickerung (m³/Jahr), Grundwasser |
 | Modellbasis | Würzburg-Forscher, R² 0.41–0.61 | Potsdam, R² 0.75–0.80 |
@@ -215,7 +247,8 @@ delta_lst = (1000 / reference_m2 × 100) × (–0.03)
 1. **Würzburg-Kalibrierung**: Sobald Phase-2-Regression (LST × Baumkronendeckung) für Würzburg abgeschlossen ist, eigene Koeffizienten aus lokalen Daten ableiten und `simulation_params.py` aktualisieren. Allometrische Grundlage für Kronendeckungs-Input jetzt vorhanden ([[wiki/sources/moser-reischl-2021-urban-tree-growth-germany]]).
 2. **Lokale Bodenversickerung**: LfU Bayern Bodendaten (WFS) für präzise Abflussbeiwerte je Bodentypeinheit statt Literatur-Mittelwerte.
 3. **Kombinierte Simulation**: Baumpflanzung auf entsiegelter Fläche (Koeffizient aus Tervooren bestätigt: Entsiegelung + Bepflanzung kombiniert > Entsiegelung allein).
-4. **Physikalische Simulation**: ENVI-met oder WRF für Blockmaßstab — wenn statistische Simulation zu grob.
+4. **Entsiegelungs-Δ°C auf Bezugsgebiets-Ebene**: Den vorhandenen `LST_PER_PCT_UNSEALING` (−0,03 °C/%) als Stadtbezirks-KPI ausweisen statt pro Polygon (siehe „Warum die Entsiegelung in v1 kein Δ°C liefert" in Simulation B).
+5. **Physikalische Simulation**: ENVI-met oder WRF für Blockmaßstab — wenn statistische Simulation zu grob.
 
 ---
 

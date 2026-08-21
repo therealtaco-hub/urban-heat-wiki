@@ -8,10 +8,11 @@ updated: 2026-05-20
 
 # Source: García de León et al. — LST and Trees across Land Use Classes (Munich)
 
-- **Type:** Conference/journal paper (IEEE)
+- **Type:** Conference paper (IEEE)
+- **Published:** 2025 — Joint Urban Remote Sensing Event (JURSE) 2025, IEEE (DOI 10.1109/JURSE…)
 - **Authors:** Andrea Sofía García de León, Tobias Leichtle (DLR), Tobias Ullmann, Antonio Castañeda-Gómez, Thomas Rötzer (TUM), Nils Karges, Klaus Martin (SLU), Hannes Taubenböck (DLR/Univ. Würzburg) — all Univ. Würzburg or DLR
 - **Downloaded:** 2026-05-20 (via Technische Hochschule Würzburg-Schweinfurt access)
-- **Study city:** Munich, Germany
+- **Study city:** Munich, Germany — **data: summer 2020** (LST product + aerial-imagery tree segmentation)
 - **Raw file:** [[raw/The_Relation_of_Land_Surface_Temperature_and_Trees_across_Different_Urban_Land_Use_Classes_based_on_Remote_Sensing.pdf]]
 
 ## Summary
