@@ -3,7 +3,7 @@ title: "Source: Bessere Nutzung von Entsiegelungspotenzialen zur Wiederherstellu
 type: source
 tags: [entsiegelung, bodenfunktionen, klimaanpassung, umweltbundesamt, deutschland, politik]
 sources: 1
-updated: 2026-05-20
+updated: 2026-11-09
 ---
 
 # Source: Pannicke-Prochnow et al. (2021) — UBA Texte 141: Entsiegelungspotenziale
@@ -35,11 +35,11 @@ Primär ein Policy-Dokument, das wissenschaftliche Erkenntnisse mit Handlungsemp
 5. Datenbasis für Versiegelungsgrad in Deutschland: **Copernicus Imperviousness Layer**, **IÖR-Monitor Bodenversiegelung**, umweltökonomische Gesamtrechnungen der Länder.
 6. Entsiegelungspotenziale konzentrieren sich auf dauerhaft ungenutzte (Brachflächen) sowie funktional entsiegelbare Flächen (z.B. Parkplätze, die auf Sickerpflaster umgestellt werden können).
 
-## Relevanz für Würzburg-Projekt
+## Relevanz für Würzburg
 
 - Liefert den rechtlichen Rahmen: welche Instrumente (Bebauungsplan, Baumschutzsatzung, Niederschlagswassergebühr) die Stadt Würzburg hat, um Entsiegelung voranzutreiben.
 - Copernicus Imperviousness Layer als **freie Datenquelle** für Würzburgs Versiegelungsgrad — direkt im GIS-Workflow nutzbar.
-- Konzept der doppelten Innenentwicklung stützt die Argumentation des Projekts: Nachverdichtung muss von Grünflächenqualifizierung begleitet werden.
+- Konzept der doppelten Innenentwicklung: Nachverdichtung muss von Grünflächenqualifizierung begleitet werden.
 
 ## Contradictions / Gaps
 

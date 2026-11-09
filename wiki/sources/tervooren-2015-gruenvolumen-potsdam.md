@@ -3,7 +3,7 @@ title: "Source: Potenziale von Grünvolumen und Entsiegelung zur Klimaanpassung 
 type: source
 tags: [entsiegelung, grünvolumen, landsat, potsdam, regression, temperatur, schlüsselquelle]
 sources: 1
-updated: 2026-05-20
+updated: 2026-11-09
 ---
 
 # Source: Tervooren (2015) — Grünvolumen und Entsiegelung in Potsdam
@@ -54,6 +54,4 @@ Diese Studie korreliert Landsat-LST-Daten (2010, heißer Sommertag, DWD-Lufttemp
 - [[wiki/concepts/entsiegelung]]
 - [[wiki/concepts/impervious-surface]]
 - [[wiki/concepts/land-surface-temperature]]
-- [[wiki/kuehleffekte-vergleich]]
-- [[wiki/methodischer-plan-wuerzburg]]
 - [[wiki/overview]]

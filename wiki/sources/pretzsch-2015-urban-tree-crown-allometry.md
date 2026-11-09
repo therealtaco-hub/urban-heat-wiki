@@ -3,7 +3,7 @@ title: "Source: Pretzsch et al. 2015 — Crown Size Allometry for 22 Urban Tree 
 type: source
 tags: [trees, allometry, crown-radius, crown-size, urban-forestry, worldwide, species-classification]
 sources: 1
-updated: 2026-06-19
+updated: 2026-11-09
 ---
 
 # Source: Crown Size and Growing Space Requirement of Common Tree Species in Urban Centres, Parks, and Forests
@@ -56,7 +56,5 @@ Application for any individual tree: `cr_m = exp(a) × DBH_cm^α`, then `CPA_m2 
 ## Wiki Pages Updated
 
 - [[wiki/concepts/tree-species-selection]] — allometric type classification; species-specific cr25 and CPA values
-- [[wiki/simulation-logic]] — crown area default caveat; allometric formula documented as improvement path
 - [[wiki/entities/thomas-roetzer]] — co-author (Rötzer listed)
 - [[wiki/entities/tu-muenchen]] — institutional home of Pretzsch + Rötzer
-- [[wiki/kuehleffekte-vergleich]] — CPA reference values for Type 1 species

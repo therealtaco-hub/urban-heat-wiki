@@ -3,7 +3,7 @@ title: "DWA-A138 Anwendung bei der Regenwasserbewirtschaftung in Bayern (LfU)"
 type: source
 tags: [entsiegelung, versickerung, abflussbeiwert, regenwasser, lfu-bayern, dwa-a138, hydrologie]
 sources: 1
-updated: 2026-06-08
+updated: 2026-11-09
 ---
 
 # Source: DWA-A138 — Regenwasserbewirtschaftung Bayern (LfU)
@@ -17,21 +17,21 @@ updated: 2026-06-08
 
 Das Bayerische Landesamt für Umwelt (LfU) präsentiert die Anwendung des deutschen Regelwerks DWA-A138 (*Planung, Bau und Betrieb von Anlagen zur Versickerung von Niederschlagswasser*) für die Praxis in Bayern. Das DWA-A138 ist das in Deutschland verbindliche technische Regelwerk für dezentrale und zentrale Regenwasserversickerung.
 
-Das Dokument deckt drei Themenbereiche ab: (1) **Abflussbeiwerte** nach Belagstyp als Bemessungsgrundlage — dies ist die behördlich anerkannte Bayerische Tabelle und damit die Quelle für die in `simulation_params.py` verwendeten Werte; (2) **Untergrundparameter** (Durchlässigkeitsbeiwerte kf, Grundwasserabstand) als Standortbedingungen für Versickerungsanlagen; (3) **Anlagentypen** (Mulden, Rigolen, Sickerschächte) und deren Bemessungsverfahren.
+Das Dokument deckt drei Themenbereiche ab: (1) **Abflussbeiwerte** nach Belagstyp als Bemessungsgrundlage — dies ist die behördlich anerkannte Bayerische Tabelle; (2) **Untergrundparameter** (Durchlässigkeitsbeiwerte kf, Grundwasserabstand) als Standortbedingungen für Versickerungsanlagen; (3) **Anlagentypen** (Mulden, Rigolen, Sickerschächte) und deren Bemessungsverfahren.
 
-Für das Projekt *Resilientes Würzburg* ist dies die **maßgebliche Quelle für die Abflussbeiwerte**, die im `/api/simulate/wasser`-Endpoint die Versickerungsberechnung steuern. Die Werte sind direkt für Bayern (inkl. Würzburg) gültig. Die Leitfaden-Bayreuth-2024-Quelle, die bislang als Quellenbeleg diente, zitiert ihrerseits das DWA-A138 als Ursprung.
+Die Werte gelten für Bayern (inkl. Würzburg). Der Leitfaden Bayreuth 2024 zitiert seinerseits das DWA-A138 als Ursprung.
 
 ## Key Claims
 
-1. **Asphalt / fugenloser Beton: Ψ = 0,9** — maßgeblicher DWA-A138-Wert für vollversiegelte Fahrbahnen/Plätze. (Hinweis: `simulation_params.py` verwendet aktuell 0,95 aus Leitfaden Bayreuth — kleiner Unterschied; DWA-A138 ist die primäre Quelle.)
+1. **Asphalt / fugenloser Beton: Ψ = 0,9** — maßgeblicher DWA-A138-Wert für vollversiegelte Fahrbahnen/Plätze.
 2. **Pflaster mit dichten Fugen: Ψ = 0,75** — relevanter Zwischenbelag für Plätze und ältere Straßen.
 3. **Fester Kiesbelag: Ψ = 0,60** — mittlere Durchlässigkeit.
-4. **Pflaster mit offenen Fugen: Ψ = 0,50** — entspricht dem in `simulation_params.py` als `sickerpflaster` geführten Wert (0,30 stammt aus Leitfaden Bayreuth als Mittelwert einer breiten Bandbreite).
+4. **Pflaster mit offenen Fugen: Ψ = 0,50**
 5. **Verbundsteine mit Fugen / Sickersteine: Ψ = 0,25** — teilversiegelt.
-6. **Rasengittersteine: Ψ = 0,15** — übereinstimmend mit `simulation_params.py` (`rasengitter: 0.15`).
-7. **Lockerer Kiesbelag / Schotterrasen: Ψ = 0,30** — übereinstimmend mit `simulation_params.py` (`schotterrasen: 0.30`).
-8. **Gärten, Wiesen, Kulturland (flach): Ψ = 0,0–0,1** — bestätigt den `rasendecke: 0.05`-Wert.
-9. **Gründach (humusiert > 10 cm): Ψ = 0,30; < 10 cm: Ψ = 0,50; Kiesauflage: Ψ = 0,70** — für zukünftige Dachbegrünungs-Simulation relevant (derzeit nicht in `simulation_params.py`).
+6. **Rasengittersteine: Ψ = 0,15**
+7. **Lockerer Kiesbelag / Schotterrasen: Ψ = 0,30**
+8. **Gärten, Wiesen, Kulturland (flach): Ψ = 0,0–0,1**
+9. **Gründach (humusiert > 10 cm): Ψ = 0,30; < 10 cm: Ψ = 0,50; Kiesauflage: Ψ = 0,70**
 10. **Schrägdach**: Ziegel/Dachpappe Ψ = 0,8–1,0; Metall/Glas/Schiefer Ψ = 0,9–1,0.
 11. **Versickerungseignung**: Bester kf-Bereich 10⁻⁴ bis 10⁻³ m/s (sandiger Kies, Grob-/Mittelsand). Toniger Schluff/Ton (< 10⁻⁷ m/s) nicht versickerungsfähig.
 12. **Mindestabstand Grundwasser**: ≥ 1 m zum mittleren Höchsten Grundwasserstand (MHGW). Ausnahme bei geringer Belastung und ≥ 20 cm bewachsenem Oberboden: Abstand nur zum MGW.
@@ -78,15 +78,14 @@ Für das Projekt *Resilientes Würzburg* ist dies die **maßgebliche Quelle für
 
 ## Contradictions / Gaps
 
-- **Asphalt-Wert**: DWA-A138 gibt 0,9; `simulation_params.py` verwendet 0,95 (aus Leitfaden Bayreuth 2024). Die Differenz ist gering, aber DWA-A138 ist die primäre Normenquelle — Anpassung in `simulation_params.py` auf 0,90 wäre korrekt (oder als Bandbreite 0,9–1,0 dokumentieren).
-- **Sickerpflaster-Bandbreite**: DWA-A138 gibt "Pflaster mit offenen Fugen: 0,50" (definierter Wert) und "Sickersteine/Verbundsteine: 0,25". Leitfaden Bayreuth gibt eine breite Bandbreite 0,0–0,6. `simulation_params.py` verwendet 0,30 als Mittelwert — plausibel, aber mittelwertig.
+- **Asphalt-Wert**: DWA-A138 gibt 0,9, der Leitfaden Bayreuth 2024 0,95. Die Differenz ist gering; DWA-A138 ist die primäre Normenquelle.
+- **Sickerpflaster-Bandbreite**: DWA-A138 gibt "Pflaster mit offenen Fugen: 0,50" (definierter Wert) und "Sickersteine/Verbundsteine: 0,25". Leitfaden Bayreuth gibt eine breite Bandbreite 0,0–0,6.
 - Das Dokument enthält keine Temperatur- oder LST-Daten — es ist rein hydrologisch. Die Verbindung zu Kühleffekten muss über [[wiki/sources/tervooren-2015-gruenvolumen-potsdam]] hergestellt werden.
-- Keine Würzburg-spezifischen Bodendaten — LfU Bayern Bodentypen-WFS würde lokale kf-Werte liefern (als offenes TODO in [[wiki/simulation-logic.md]] bereits vermerkt).
+- Keine Würzburg-spezifischen Bodendaten — LfU Bayern Bodentypen-WFS würde lokale kf-Werte liefern.
 
 ## Wiki Pages Updated
 
 - [[wiki/sources/dwa-a138-lfu-regenwasser-bayern]] — neu (diese Seite)
 - [[wiki/concepts/entsiegelung]] — Abflussbeiwert-Tabelle um DWA-A138-Werte erweitert; Gründach-Zeilen ergänzt; DWA-A138 als Primärquelle hinzugefügt
-- [[wiki/simulation-logic.md]] — DWA-A138 als Primärquelle für Abflussbeiwerte ergänzt; Asphalt-Diskrepanz dokumentiert
 - [[wiki/overview.md]] — Quellzähler aktualisiert
 - [[wiki/index.md]] — Source-Eintrag hinzugefügt

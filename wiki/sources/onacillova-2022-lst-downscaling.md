@@ -3,7 +3,7 @@ title: "Source: Onačillová et al. 2022 — LST Downscaling L8+S2 in GEE"
 type: source
 tags: [remote-sensing, lst, landsat, sentinel-2, downscaling, gee, ndvi, ndbi, method]
 sources: 1
-updated: 2026-05-21
+updated: 2026-11-09
 ---
 
 # Source: Combining Landsat 8 and Sentinel-2 in GEE to Derive 10m LST
@@ -122,5 +122,4 @@ The GEE application automates all seven steps above:
 - [[wiki/concepts/remote-sensing-methods]] — added step-by-step downscaling subsection; updated Würzburg pipeline
 - [[wiki/concepts/land-surface-temperature]] — noted 10 m achievability; added accuracy caveats
 - [[wiki/concepts/ndvi]] — added bivariate R²=0.63 with LST data point
-- [[wiki/methodischer-plan-wuerzburg]] — Phase 1.1 expanded with concrete GEE workflow
 - [[wiki/overview]] — source count updated; GEE tool noted in synthesis

@@ -3,7 +3,7 @@ title: "Source: Wirkungen der grünen Stadt — Studie zur Abbildung des aktuell
 type: source
 tags: [green-infrastructure, review, trees, parks, green-roofs, vertical-greening, austria, lai, cooling]
 sources: 1
-updated: 2026-05-20
+updated: 2026-11-09
 ---
 
 # Source: Stangl et al. (2019) — Wirkungen der grünen Stadt
@@ -114,4 +114,3 @@ Klimaanlagenenergie: −12% bis −42% (Pan et al. 2018, Simulation).
 - [[wiki/concepts/green-infrastructure]]
 - [[wiki/concepts/evapotranspiration]]
 - [[wiki/concepts/land-surface-temperature]]
-- [[wiki/kuehleffekte-vergleich]]

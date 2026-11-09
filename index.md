@@ -1,8 +1,8 @@
 ---
 title: "Wiki Index"
-updated: 2026-08-18
+updated: 2026-11-09
 total_sources: 25
-total_pages: 49
+total_pages: 51
 ---
 
 # Urban Heat Mapping — Wiki Index
@@ -83,11 +83,3 @@ Master catalog of all wiki pages. Read this before answering any query.
 - [[wiki/entities/dlr]] — German Aerospace Center; remote sensing data products; Taubenböck/Leichtle
 - [[wiki/entities/tu-muenchen]] — TU München; Rötzer's lab; Stratopoulos dissertation; Muhammad thesis
 - [[wiki/entities/eth-zurich]] — ETH Zürich; Schwaab et al. 2021 European cities study
-
----
-
-## Other
-
-- [[wiki/kuehleffekte-vergleich]] — Alle quantitativen Kühleffekte aus dem Wiki im Vergleich; Übertragbarkeit auf Würzburg (9 Quellen)
-- [[wiki/methodischer-plan-wuerzburg]] — Strukturierter Arbeitsplan für das Würzburg-Projekt: 5 Phasen, Datenquellen, offene Methodenfragen (9 Quellen)
-- [[wiki/simulation-logic.md]] — Berechnungslogik für /api/simulate/baeume + /api/simulate/wasser; Input/Output-Verträge; Annahmen (4 Quellen)

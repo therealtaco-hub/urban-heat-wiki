@@ -3,7 +3,7 @@ title: "Tree Species Selection and the Drought-Cooling Tradeoff"
 type: concept
 tags: [trees, drought-tolerance, transpiration, species-selection, climate-adaptation, tradeoff, allometry, crown-size]
 sources: 3
-updated: 2026-06-19
+updated: 2026-11-09
 ---
 
 # Tree Species Selection and the Drought-Cooling Tradeoff
@@ -50,7 +50,7 @@ Park trees have significantly larger crowns, height, and DBH than street or squa
 - This tradeoff must be explicitly reflected in urban greening strategies and cooling simulations — a tree planted today under a climate-resilient species choice may cool 10–15% less than one planted with a moisture-adapted species.
 - The tradeoff may be acceptable given longer expected survival: a drought-tolerant tree that lives 40 years cools more over its lifetime than a moisture-adapted tree that dies in 20 years due to drought stress.
 - Among the Würzburg Baumkataster species, *Platanus × hispanica* delivers the largest crown projection area per tree but has a low LAI; *Tilia cordata* has the highest LAI (best transpiration cooling) and is native.
-- Computing `kronenfläche_m2 = π × (kronenbrei/2)²` from the existing `kronenbrei` field in the Baumkataster is now justified by allometric data — and can be enhanced with the allometric regression `CPA = exp(a) × DBH^b` when `kronenbrei` is null.
+- Computing the crown projection area `CPA = π × (kronenbrei/2)²` from the existing `kronenbrei` field in the Baumkataster is now justified by allometric data — and can be enhanced with the allometric regression `CPA = exp(a) × DBH^b` when `kronenbrei` is null.
 
 ## Related Concepts
 

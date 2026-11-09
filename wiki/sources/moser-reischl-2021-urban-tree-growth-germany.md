@@ -3,7 +3,7 @@ title: "Source: Moser-Reischl et al. 2021 — Urban Tree Growth in South Germany
 type: source
 tags: [trees, allometry, crown-size, south-germany, würzburg, urban-forestry, growth-model]
 sources: 1
-updated: 2026-06-19
+updated: 2026-11-09
 ---
 
 # Source: Urban Tree Growth Characteristics of Four Common Species in South Germany
@@ -64,7 +64,6 @@ Würzburg-specific mean values (Table 2, from study):
 ## Wiki Pages Updated
 
 - [[wiki/concepts/tree-species-selection]] — species-specific CPA data for Würzburg; park/street site-type effect
-- [[wiki/simulation-logic]] — kronenfläche calculation route; allometric alternative to fixed 50 m² default
 - [[wiki/entities/thomas-roetzer]] — co-author
 - [[wiki/entities/wuerzburg]] — Würzburg is a direct study city with n=75–89 per species
 - [[wiki/entities/tu-muenchen]] — institutional home (Rötzer, Pauleit, Pretzsch at TU München)

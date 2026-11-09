@@ -142,7 +142,7 @@ When the human asks a question:
 1. Read `index.md` to identify relevant pages.
 2. Read those pages.
 3. Synthesize an answer with inline wiki citations `[[page-name]]`.
-4. Ask: "Should I file this answer as a wiki page?" If yes, save to `wiki/` under the appropriate type.
+4. Ask: "Should I file this answer as a wiki page?" If yes, save to `wiki/` under the appropriate type — only for source-based syntheses, never for project plans or code documentation (see Behavioral Rules).
 5. If the answer reveals a gap (missing page, stale claim, contradiction), flag it and offer to fix.
 
 ### LINT — wiki health check
@@ -240,3 +240,4 @@ Types: `ingest`, `query`, `lint`, `update`, `setup`
 - Do not invent claims not supported by the sources. Mark speculative synthesis clearly with `> [!note] Synthesis — not yet sourced`.
 - When the human adds a source without instruction, default to starting the INGEST workflow.
 - At session start, read `index.md` and `log.md` to orient yourself before doing anything else.
+- Keep the wiki strictly source-based: no project or code documentation (implementation details, file/function/endpoint names, parameter values, project plans). Project documentation lives in the code repository (`docs/Dokumentation.md` in resilientes_wuerzburg).

@@ -3,7 +3,7 @@ title: "Entsiegelung (Surface Unsealing)"
 type: concept
 tags: [entsiegelung, versickerung, grundwasser, temperatur, schwammstadt, bodenfunktionen]
 sources: 4
-updated: 2026-06-08
+updated: 2026-11-09
 ---
 
 # Entsiegelung (Surface Unsealing)
@@ -39,7 +39,7 @@ Jede 1% Reduktion der Versiegelungsfläche senkt die mittlere LST um **0,03°C**
 
 ## Versickerungsgrade nach Belagstyp
 
-Die folgende Tabelle zeigt die **Abflussbeiwerte (Ψ)** nach DWA-A138 / LfU Bayern — die verbindliche Bayerische Ingenieursnorm für Versickerungsanlagen. Dies ist die Primärquelle für die in `backend/simulation_params.py` verwendeten Werte.
+Die folgende Tabelle zeigt die **Abflussbeiwerte (Ψ)** nach DWA-A138 / LfU Bayern — die verbindliche Bayerische Ingenieursnorm für Versickerungsanlagen.
 
 | Flächentyp | Belagsart | Ψ (Abflussbeiwert) |
 |---|---|---|
@@ -61,7 +61,7 @@ Ergänzende Kostenangaben und eine breitere Bandbreite für Sickerpflaster (0,0�
 
 > Abflussbeiwert = Anteil des Niederschlags, der oberflächlich abfließt (nicht versickert). Kleiner Wert = mehr Versickerung + mehr Verdunstungspotenzial.
 
-**Hinweis Asphalt-Diskrepanz:** DWA-A138 gibt Ψ = 0,9 für Asphalt/fugenloser Beton; `simulation_params.py` verwendet aktuell 0,95 (aus Leitfaden Bayreuth). Beide Werte liegen innerhalb der Bandbreite; DWA-A138 ist die Primärquelle.
+**Hinweis Asphalt:** DWA-A138 gibt Ψ = 0,9 für Asphalt/fugenloser Beton, der Leitfaden Bayreuth 0,95. Beide Werte liegen innerhalb der Bandbreite; DWA-A138 ist die Primärquelle.
 
 ## Entsiegelungstypen
 
