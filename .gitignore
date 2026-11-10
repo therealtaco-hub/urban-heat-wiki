@@ -6,6 +6,9 @@
 # PDFs in raw/ — zu groß für Git, werden lokal abgelegt
 raw/*.pdf
 
+# Volltexte von Presseartikeln in raw/ — urheberrechtlich geschützt, nur lokal
+raw/*.md
+
 # Claude Code — maschinenspezifische Berechtigungen
 .claude/settings.local.json
 
